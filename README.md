@@ -7,10 +7,8 @@ An AI-powered, ATS-optimised resume generator CLI. Barry takes your base resume 
 Install Barry globally on your machine using npm:
 
 ```bash
-npm install -g barry
+npm install -g barry-resume-cli
 ```
-
-*(Note: Ensure you are installing the correct package. If `barry` is already taken on npm, update this command based on the published name!)*
 
 ### Prerequisites
 1. **Node.js** (v18+)
@@ -37,23 +35,25 @@ $env:GROQ_API_KEY="your-api-key-here"
 
 ## 🛠️ Usage
 
-Once installed and configured, open your terminal in the folder containing your resume files and run:
+To use Barry, you should create a specific folder for your job application and place your files there. This ensures a smooth and clean experience.
+
+**Step 1: Prepare your files**
+Create a new folder and add the following files to it:
+1. `resume_data.json` (Your base resume data in JSON format)
+2. `resume_template.tex` (Your LaTeX design template)
+3. `jd.txt` (The Job Description you are applying for, saved as plain text)
+
+*(Need examples? Check the `examples/` directory in this repository to see exactly how your input files should be structured!)*
+
+**Step 2: Run the CLI**
+Open your terminal inside the folder where you placed those files, and simply run:
 
 ```bash
 barry
 ```
 
-Barry will launch an interactive UI and guide you to select:
-1. Your **Base Resume JSON** (e.g., `resume_data.json`)
-2. Your **LaTeX Template** (e.g., `resume_template.tex`)
-3. The **Job Description** text file (e.g., `jd.txt`)
-4. The **Company Name** (for output naming)
-5. The **Output Directory**
-
-Barry will then securely generate a tailored JSON, compile it via LaTeX, and output your ATS-ready PDF!
-
-### Example Files
-Check the `examples/` directory in this repository for a sample `resume_data.json` and `resume_template.tex` to see exactly how your input files should be structured.
+**Step 3: Follow the Prompts**
+Barry will launch an interactive UI and guide you to confirm your file paths and enter the Company Name. It will then securely generate a tailored JSON, compile it via LaTeX, and output your ATS-ready PDF directly into an `output/` folder!
 
 ## 🤝 Contributing
 Contributions, issues and feature requests are always welcome!

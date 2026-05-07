@@ -285,14 +285,24 @@ async function main() {
     const s = spinner();
     s.start('Reading input files...');
     let baseResume, template, jdText;
+    
     try {
-        baseResume = JSON.parse(await fsp.readFile(resumeDataPath, 'utf-8'));
+        const rawJson = await fsp.readFile(resumeDataPath, 'utf-8');
+        try {
+            baseResume = JSON.parse(rawJson);
+        } catch (jsonErr) {
+            s.stop(chalk.red('✖ Invalid JSON format'));
+            console.log(chalk.yellow(`Could not parse ${resumeDataPath}. Please ensure it is valid JSON.`));
+            process.exit(1);
+        }
+        
         template = await fsp.readFile(resumeTemplatePath, 'utf-8');
         jdText = await fsp.readFile(jdPath, 'utf-8');
         s.stop(chalk.green('✔ Files loaded'));
     } catch (e) {
         s.stop(chalk.red('✖ Failed to read files'));
-        console.error(e);
+        console.log(chalk.yellow('Ensure all paths are correct and files are readable.'));
+        console.error(e.message);
         process.exit(1);
     }
 
