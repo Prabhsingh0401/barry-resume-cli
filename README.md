@@ -1,6 +1,8 @@
 # ⚡ Barry
 
-An AI-powered, ATS-optimised resume generator CLI. Barry takes your base resume JSON, a LaTeX template, and a Job Description, then leverages the Groq LLM API to rewrite your resume specifically for that role and compiles it into a beautiful PDF locally.
+<img width="376" height="219" alt="image" src="https://github.com/user-attachments/assets/571fc71b-21cc-4632-8820-fefb4a457895" />
+
+Introducing Barry, an ATS-optimised resume generator CLI. Barry takes your base resume JSON, a LaTeX template, and a Job Description, then leverages the Groq LLM API to rewrite your resume specifically for that role and compiles it into a beautiful PDF locally.
 
 ## 🚀 Installation
 
