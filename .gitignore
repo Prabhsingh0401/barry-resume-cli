@@ -1,0 +1,10 @@
+node_modules/
+output/
+.env
+*.pdf
+*.tex
+*.json
+!resume_data.json
+!package.json
+!package-lock.json
+!examples/*.json

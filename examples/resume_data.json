@@ -1,0 +1,57 @@
+{
+  "basics": {
+    "name": "Jane Doe",
+    "email": "jane.doe@example.com",
+    "phone": "+1 555-123-4567",
+    "linkedin": "https://linkedin.com/in/janedoe",
+    "github": "https://github.com/janedoe",
+    "website": "https://janedoe.com"
+  },
+  "skills": [
+    {
+      "category": "Languages",
+      "items": ["Python", "JavaScript", "TypeScript", "SQL"]
+    },
+    {
+      "category": "Frameworks",
+      "items": ["React", "Node.js", "Express", "Next.js"]
+    }
+  ],
+  "workExperience": [
+    {
+      "company": "Tech Corp",
+      "role": "Software Engineer",
+      "location": "San Francisco, CA",
+      "duration": "June 2021 - Present",
+      "details": [
+        "Engineered scalable microservices architecture using Node.js and Express.",
+        "Optimised database query performance, reducing latency by 30%."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Portfolio App",
+      "technologies": ["React", "Tailwind CSS"],
+      "link": "https://github.com/janedoe/portfolio",
+      "details": [
+        "Developed a responsive portfolio application using modern frontend frameworks.",
+        "Implemented continuous deployment via GitHub Actions."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "State University",
+      "degree": "B.S. in Computer Science",
+      "duration": "Aug 2017 - May 2021"
+    }
+  ],
+  "achievements": [
+    {
+      "title": "Hackathon Winner",
+      "description": "First place in the 2020 Global Hackathon for innovative use of AI APIs."
+    }
+  ],
+  "positionsOfResponsibility": []
+}
