@@ -57,5 +57,115 @@ barry
 **Step 3: Follow the Prompts**
 Barry will launch an interactive UI and guide you to confirm your file paths and enter the Company Name. It will then securely generate a tailored JSON, compile it via LaTeX, and output your ATS-ready PDF directly into an `output/` folder!
 
+## 📄 File Formats
+
+### `resume_data.json`
+
+The JSON structure Barry expects:
+
+```json
+{
+  "basics": {
+    "name": "Jane Doe",
+    "email": "jane.doe@example.com",
+    "phone": "+1 555-123-4567",
+    "linkedin": "https://linkedin.com/in/janedoe",
+    "github": "https://github.com/janedoe",
+    "website": "https://janedoe.com",
+    "medium": "https://medium.com/@janedoe"
+  },
+  "skills": [
+    { "category": "Languages", "items": ["Python", "JavaScript"] },
+    { "category": "Frameworks", "items": ["React", "Node.js"] }
+  ],
+  "workExperience": [
+    {
+      "company": "Tech Corp",
+      "role": "Software Engineer",
+      "location": "San Francisco, CA",
+      "duration": "June 2021 - Present",
+      "details": [
+        "Engineered scalable microservices using Node.js and Express.",
+        "Reduced query latency by 30% through query optimisation."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Portfolio App",
+      "technologies": ["React", "Tailwind CSS"],
+      "link": "https://github.com/janedoe/portfolio",
+      "details": [
+        "Built a responsive portfolio app with modern frontend frameworks.",
+        "Set up CI/CD via GitHub Actions for automated deployment."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "State University",
+      "degree": "B.S. in Computer Science",
+      "duration": "Aug 2017 - May 2021"
+    }
+  ],
+  "achievements": [
+    {
+      "title": "Hackathon Winner",
+      "description": "First place in the 2020 Global Hackathon."
+    }
+  ],
+  "positionsOfResponsibility": [
+    {
+      "role": "Club President",
+      "organization": "CS Club",
+      "location": "State University",
+      "duration": "Jan 2020 - May 2021",
+      "details": [
+        "Organised workshops and hackathons for 200+ students."
+      ]
+    }
+  ]
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `basics` | object | yes | Name, contact, and social links |
+| `skills` | array | yes | Array of `{ category, items }` objects |
+| `workExperience` | array | yes | Array of `{ company, role, location, duration, details }` |
+| `projects` | array | yes | Array of `{ name, technologies, link?, details }` |
+| `education` | array | yes | Array of `{ institution, degree, duration }` |
+| `achievements` | array | yes | Array of `{ title, description }` |
+| `positionsOfResponsibility` | array | yes | Same structure as work experience |
+
+### `resume_template.tex`
+
+A standard LaTeX resume template using these custom commands:
+
+| Command | Usage |
+|---------|-------|
+| `\resumeItem{text}` | A single bullet point |
+| `\resumeSubheading{title}{duration}{company}{location}` | Experience/education entry header |
+| `\resumeProjectHeading{title}{}` | Project entry header |
+| `\resumeSubItem{text}` | Compact single-line item |
+| `\resumeSubHeadingListStart/End` | Wrapper for subheading blocks |
+| `\resumeItemListStart/End` | Wrapper for bullet lists |
+
+Barry replaces these placeholders in your template:
+
+| Placeholder | Source |
+|-------------|--------|
+| `{{NAME}}`, `{{PHONE}}`, `{{EMAIL}}` | `basics` |
+| `{{LINKEDIN_URL}}`, `{{GITHUB_URL}}` | `basics` |
+| `{{PORTFOLIO_URL}}`, `{{MEDIUM_URL}}` | `basics` |
+| `{{SKILLS_ITEMS}}` | `skills` (auto-generated) |
+| `{{EXPERIENCE_BLOCK}}` | `workExperience` (auto-generated) |
+| `{{PROJECTS_BLOCK}}` | `projects` (auto-generated) |
+| `{{EDUCATION_BLOCK}}` | `education` (auto-generated) |
+| `{{ACHIEVEMENTS_BLOCK}}` | `achievements` (auto-generated) |
+| `{{POR_BLOCK}}` | `positionsOfResponsibility` (auto-generated) |
+
+You can customise the styling (fonts, margins, section order) as long as you keep the `{{PLACEHOLDERS}}` intact. See `examples/resume_template.tex` for a complete reference.
+
 ## 🤝 Contributing
 Contributions, issues and feature requests are always welcome!

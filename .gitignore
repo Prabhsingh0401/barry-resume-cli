@@ -8,3 +8,4 @@ output/
 !package.json
 !package-lock.json
 !examples/*.json
+AGENTS.md

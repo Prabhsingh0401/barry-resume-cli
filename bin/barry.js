@@ -209,19 +209,31 @@ function fillTemplate(template, data) {
 // ── Main CLI Flow ─────────────────────────────────────────────────────────────
 async function main() {
     console.clear();
-    const titleText = figlet.textSync('BARRY', { font: 'Slant' });
+    const titleText = figlet.textSync('BARRY', { font: 'Standard' });
     console.log(
-        boxen(chalk.blueBright(titleText) + '\n\n' + chalk.cyan('AI ATS-Optimised Resume Builder'), {
-            padding: 1,
+        boxen(chalk.blueBright(titleText) + '\n\n' + chalk.cyan('🚀 AI ATS-Optimised Resume Builder'), {
+            padding: { top: 1, bottom: 1, left: 8, right: 8 },
             margin: 1,
             borderStyle: 'double',
             borderColor: 'blueBright',
             title: 'v1.0.0',
-            titleAlignment: 'center'
+            titleAlignment: 'center',
+            textAlignment: 'center'
         })
     );
 
     intro(chalk.bgBlue.black(' Welcome to Barry CLI '));
+
+    // Show instructions
+    console.log(boxen(
+        chalk.yellow('Before You Begin\n') +
+        chalk.white('\nYou will be prompted to enter file paths for:\n\n') +
+        chalk.cyan('  1. Resume data') + chalk.dim(' — JSON file (see README for format)\n') +
+        chalk.cyan('  2. LaTeX template') + chalk.dim(' — .tex file (see README for structure)\n') +
+        chalk.cyan('  3. Job description') + chalk.dim(' — .txt file for the role you want\n\n') +
+        chalk.dim('Refer to the README for instructions on creating these files.'),
+        { padding: 1, margin: 1, borderStyle: 'round', borderColor: 'yellow' }
+    ));
 
     // Check prerequisites
     const checkSpin = spinner();
@@ -241,23 +253,27 @@ async function main() {
     }
 
     // Prompts
-    const resumeDataPath = await text({
+    const resumeDataPathResult = await text({
         message: 'Where is your resume JSON data?',
-        initialValue: 'resume_data.json',
+        placeholder: 'resume_data.json',
         validate(value) {
-            if (!fs.existsSync(value)) return `File not found: ${value}`;
+            const final = value || 'resume_data.json';
+            if (!fs.existsSync(final)) return `File not found: ${final}`;
         }
     });
-    if (isCancel(resumeDataPath)) { cancel('Operation cancelled'); process.exit(0); }
+    if (isCancel(resumeDataPathResult)) { cancel('Operation cancelled'); process.exit(0); }
+    const resumeDataPath = resumeDataPathResult || 'resume_data.json';
 
-    const resumeTemplatePath = await text({
+    const resumeTemplatePathResult = await text({
         message: 'Where is your LaTeX template?',
-        initialValue: 'resume_template.tex',
+        placeholder: 'resume_template.tex',
         validate(value) {
-            if (!fs.existsSync(value)) return `File not found: ${value}`;
+            const final = value || 'resume_template.tex';
+            if (!fs.existsSync(final)) return `File not found: ${final}`;
         }
     });
-    if (isCancel(resumeTemplatePath)) { cancel('Operation cancelled'); process.exit(0); }
+    if (isCancel(resumeTemplatePathResult)) { cancel('Operation cancelled'); process.exit(0); }
+    const resumeTemplatePath = resumeTemplatePathResult || 'resume_template.tex';
 
     const jdPath = await text({
         message: 'Where is the Job Description (.txt)?',
@@ -275,11 +291,12 @@ async function main() {
     });
     if (isCancel(companyName)) { cancel('Operation cancelled'); process.exit(0); }
 
-    const outputDir = await text({
+    const outputDirResult = await text({
         message: 'Where should we save the generated resume?',
-        initialValue: 'output'
+        placeholder: 'output'
     });
-    if (isCancel(outputDir)) { cancel('Operation cancelled'); process.exit(0); }
+    if (isCancel(outputDirResult)) { cancel('Operation cancelled'); process.exit(0); }
+    const outputDir = outputDirResult || 'output';
 
     // Read files
     const s = spinner();
